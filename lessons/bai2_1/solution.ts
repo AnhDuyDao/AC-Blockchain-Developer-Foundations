@@ -2,14 +2,14 @@ export class SmartContract {
     private message: string;
 
     constructor(initialMessage: string) {
-        this.message = initialMessage;
+        // TODO: initialize the message with initialMessage
     }
 
     public updateMessage(newMsg: string): void {
-        this.message = newMsg;
+        // TODO: update the message with newMsg
     }
 
     public getMessage(): string {
-        return this.message;
+        // TODO: return the current message
     }
 }
