@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 contract StudentRegistryV2 {
    address public owner;
 
-   
-
    struct Student {
       string name;
       uint age;
@@ -17,6 +15,7 @@ contract StudentRegistryV2 {
    error StudentNotRegistered();
    error StudentAlreadyRegistered();
    error NotOwner(address caller, address owner);
+   event Registered(address studentAddress, string name, uint age);
 
    modifier onlyOwner() {
       if (msg.sender != owner) {
@@ -29,11 +28,12 @@ contract StudentRegistryV2 {
       owner = msg.sender;
    }
 
-   function registerStudent(string memory _name, uint _age) public onlyOwner {
-      if (students[msg.sender].isRegistered) {
+   function registerStudent(address _studentAddress,string memory _name, uint _age) public onlyOwner {
+      if (students[_studentAddress].isRegistered) {
          revert StudentAlreadyRegistered();
       }
-      students[msg.sender] = Student(_name, _age, true);
+      students[_studentAddress] = Student(_name, _age, true);
+      emit Registered(_studentAddress, _name, _age);
    }
 
    function getStudent(address _studentAddress) public view returns (string memory, uint) {
